@@ -7,13 +7,49 @@
 // @lc code=start
 function productExceptSelf(nums: number[]): number[] {
 
-  const answer: number[] = [];
+  let accumulation = 1;
+
+  let answer: number[] = []
 
   for(let i = 0; i < nums.length; i++){
-    const tempNums = [...nums];
-    tempNums.splice(i, 1);
 
-    answer.push(tempNums.reduce((accumulator, currentValue) => accumulator * currentValue, 1));
+    if(i === 0){
+      answer.push(nums[i]);
+      continue;
+    }
+
+    accumulation *= nums[i - 1];
+    answer.push(accumulation);
+    
+    // accumulation *= nums[i];
+    // answer.push(accumulation);
+
+    
+    // preAnswer.push(accumulation);
+    // accumulation *= i === 0 ? nums[i + 1] : nums[i];
+  }
+
+  accumulation = 1;
+
+
+  for(let i = nums.length - 1; i > -1; i--){
+    
+    if(i !== nums.length - 1){     
+      accumulation *= nums[i + 1];
+      if(i === 0){
+        answer[i] = accumulation;
+        break;
+      }
+      answer[i] *= accumulation;
+    }
+  
+
+    // accumulation *= nums[i];
+    // answer[i] *= accumulation;
+
+
+    // answer.push(accumulation);
+    // accumulation *= i === preAnswer.length - 1 ? preAnswer[i - 1] : preAnswer[i];
   }
 
   return answer;
