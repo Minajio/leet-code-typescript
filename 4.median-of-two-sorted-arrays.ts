@@ -7,59 +7,32 @@
 // @lc code=start
 function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
 
-  if((nums1.length + nums2.length) % 2 === 0){
-    const medianPos = Math.floor((nums1.length + nums2.length) / 2);
-    
-    let currentPos = 0;
-  
-    let nums1Pos = 0;
-    let nums2Pos = 0;
-  
-    while(medianPos !== currentPos){
-      if(nums1[nums1Pos] < nums2[nums2Pos]){
-        currentPos++;
-        nums1Pos++;
-        continue;
-      }
-      currentPos++;
-      nums2Pos++;
-    }
-  
-    let n1 = 0;
-  
-    if(nums1[nums1Pos] < nums2[nums2Pos]){
-      n1 = nums1[nums1Pos];
-      nums1Pos++;
-    }
-    else{
-      n1 = nums2[nums2Pos];
-      nums2Pos++;
-    }
-  
-    let n2 = Math.min(nums1[nums1Pos], nums2[nums2Pos]);
-  
-    return (n1 + n2) / 2;
+  let median1 = 0;
+  let median2 = 0;
+
+  if(nums1.length === 1){
+    median1 = nums1[0];
   }
-
-  const medianPos = (nums1.length + nums2.length) / 2;
-
-  let currentPos = 0;
-  
-  let nums1Pos = 0;
-  let nums2Pos = 0;
-
-  while(medianPos !== currentPos){
-    if(nums1[nums1Pos] < nums2[nums2Pos]){
-      currentPos++;
-      nums1Pos++;
-      continue;
-    }
-    currentPos++;
-    nums2Pos++;
+  else if(nums1.length % 2 === 0){
+    const middle = nums1.length / 2;
+    median1 = (nums1[Math.floor(middle)] + nums1[Math.ceil(middle)]) / 2;
+  }
+  else{
+    median1 = nums1[nums1.length / 2];
   }
   
-  return Math.min(nums1[nums1Pos], nums2[nums2Pos]);
-  
+  if(nums2.length === 1){
+    median2 = nums2[0];
+  }
+  else if(nums2.length % 2 === 0){
+    const middle = nums2.length / 2;
+    median2 = (nums2[Math.floor(middle)] + nums2[Math.ceil(middle)]) / 2;
+  }
+  else{
+    median2 = nums2[nums2.length / 2];
+  }
+
+  return (median1 + median2) / 2;
 
 };
 // @lc code=end
